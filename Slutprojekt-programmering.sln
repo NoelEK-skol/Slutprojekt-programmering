@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Slutprojekt-programmering", "Slutprojekt-programmering.csproj", "{2245E06C-2EA5-4A19-9E39-07B74F235D78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2245E06C-2EA5-4A19-9E39-07B74F235D78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2245E06C-2EA5-4A19-9E39-07B74F235D78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2245E06C-2EA5-4A19-9E39-07B74F235D78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2245E06C-2EA5-4A19-9E39-07B74F235D78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F9B459D-B82C-4D6B-B5E1-D1BF2E5774E7}
+	EndGlobalSection
+EndGlobal

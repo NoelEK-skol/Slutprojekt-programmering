@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/Admin/Documents/Slutprojekt-programmering/Content/character.png</File>
+    <File>C:/Users/Admin/Documents/Slutprojekt-programmering/Content/DALL·E 2025-03-19 09.27.50 - A vibrant 2D platformer game background featuring a parallax-style landscape. The scene includes a soft gradient sky transitioning from deep blue to w.webp</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File>Backgrund.webp</File>
+  </DestFiles>
+</SourceFileCollection>
