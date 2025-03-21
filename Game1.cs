@@ -9,7 +9,7 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-
+    private Player player;
     private Texture2D backgroundTexture;
     private Texture2D explorer;
 
@@ -32,6 +32,7 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         backgroundTexture = Content.Load<Texture2D>("Backgrund");
         explorer = Content.Load<Texture2D>("character");
+        player = new(explorer, new Microsoft.Xna.Framework.Vector2(250, 300), 150);
 
         // TODO: use this.Content to load your game content here
     }
@@ -41,8 +42,11 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
+        
+
         // TODO: Add your update logic here
 
+        player.Update();
         base.Update(gameTime);
     }
 
@@ -55,7 +59,7 @@ public class Game1 : Game
 
         Rectangle bgRect = new(0,0, 800, 480);
         _spriteBatch.Draw(backgroundTexture, bgRect, Color.White);
-        _spriteBatch.Draw(explorer, new Rectangle(250, 250, 100, 100), Color.White);
+        player.Draw(_spriteBatch);
 
 
         _spriteBatch.End();
