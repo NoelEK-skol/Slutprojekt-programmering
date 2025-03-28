@@ -1,6 +1,5 @@
 using System;
-using System.Numerics;
-using Microsoft.VisualBasic.Devices;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,16 +9,23 @@ namespace Slutprojekt_programmering
     public class Player
     {
         private Texture2D texture;
-        private Microsoft.Xna.Framework.Vector2 position;
+        private Vector2 position;
         private Rectangle hitbox;
         private KeyboardState newKState;
         private KeyboardState oldKState;
+        private Texture2D bulletTexture;
         const float GRAVITY = 30f;
-        Microsoft.Xna.Framework.Vector2 velocity;
+        Vector2 velocity;
         private bool canJump = true;
 
-        public Player(Texture2D texture, Microsoft.Xna.Framework.Vector2 position, int pixelSize){
+        private List<Bullet> bullets = new List<Bullet>();
+        public List<Bullet> Bullets{
+            get{return bullets;}
+        }
+
+        public Player(Texture2D texture, Vector2 position, int pixelSize, Texture2D bulletTexture){
             this.texture = texture;
+            this.bulletTexture = bulletTexture;
             this.position = position;
             hitbox = new Rectangle((int)position.X,(int)position.Y,(int)(pixelSize*1.5), pixelSize);
         }
@@ -32,14 +38,29 @@ namespace Slutprojekt_programmering
         }
 
         public void Update(){
-            newKState = Microsoft.Xna.Framework.Input.Keyboard.GetState();
+            newKState = Keyboard.GetState();
             Move();
+            Shoot();
             oldKState = newKState;
 
             if(position.Y >= 300){
                 velocity.Y = 0;
                 position.Y = 300;
                 canJump = true;
+            }
+
+            foreach(Bullet b in bullets){
+                b.Update();
+            }
+        }
+
+        public Rectangle Hitbox{
+            get{return hitbox;}
+        }
+
+        private void Shoot(){
+            if(newKState.IsKeyDown(Keys.E) && oldKState.IsKeyUp(Keys.E)){
+                bullets.Add(new(bulletTexture, position + new Vector2(45,10)));
             }
         }
 
@@ -63,11 +84,11 @@ namespace Slutprojekt_programmering
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, hitbox, Color.White);
+            foreach(Bullet b in bullets){
+                b.Draw(spriteBatch);
+            }
         }
 
 
-        public Rectangle Hitbox{
-            get{return hitbox;}
-        }
     }
 }

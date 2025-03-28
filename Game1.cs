@@ -12,6 +12,7 @@ public class Game1 : Game
     private Player player;
     private Texture2D backgroundTexture;
     private Texture2D explorer;
+    private Texture2D fire;
 
     public Game1()
     {
@@ -32,7 +33,8 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         backgroundTexture = Content.Load<Texture2D>("Backgrund");
         explorer = Content.Load<Texture2D>("character");
-        player = new(explorer, new Microsoft.Xna.Framework.Vector2(250, 300), 150);
+        fire = Content.Load<Texture2D>("FireBall1");
+        player = new(explorer, new Microsoft.Xna.Framework.Vector2(250, 300), 150, fire);
 
         // TODO: use this.Content to load your game content here
     }
@@ -60,7 +62,6 @@ public class Game1 : Game
         Rectangle bgRect = new(0,0, 800, 480);
         _spriteBatch.Draw(backgroundTexture, bgRect, Color.White);
         player.Draw(_spriteBatch);
-
 
         _spriteBatch.End();
         base.Draw(gameTime);
