@@ -39,3 +39,7 @@ C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Cont
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\character.xnb
 C:\Users\Admin\Documents\Slutprojekt-programmering\obj\Debug\net6.0-windows\Slutprojekt-programmering.sourcelink.json
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\FireBall1.xnb
+C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\battleThemeA.wma
+C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\battleThemeA.xnb
+C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\Jump__009.xnb
+C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\Snare__004.xnb

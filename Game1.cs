@@ -1,7 +1,9 @@
 ﻿using System.Dynamic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Slutprojekt_programmering;
 
@@ -13,6 +15,9 @@ public class Game1 : Game
     private Texture2D backgroundTexture;
     private Texture2D explorer;
     private Texture2D fire;
+    Song theme;
+    SoundEffect effect;
+    SoundEffect shooteffect;
 
     public Game1()
     {
@@ -34,7 +39,15 @@ public class Game1 : Game
         backgroundTexture = Content.Load<Texture2D>("Backgrund");
         explorer = Content.Load<Texture2D>("character");
         fire = Content.Load<Texture2D>("FireBall1");
-        player = new(explorer, new Microsoft.Xna.Framework.Vector2(250, 300), 150, fire);
+        theme = Content.Load<Song>("battleThemeA");
+        MediaPlayer.Volume = 0.1f;
+        MediaPlayer.Play(theme);
+        MediaPlayer.IsRepeating = true;
+        effect = Content.Load<SoundEffect>("Jump__009");
+        SoundEffectInstance effectInstance = effect.CreateInstance();
+        effectInstance.Volume = 0.5f;
+        shooteffect = Content.Load<SoundEffect>("Snare__004");
+        player = new(explorer, new Vector2(250, 300), 150, fire, effectInstance, shooteffect);
 
         // TODO: use this.Content to load your game content here
     }

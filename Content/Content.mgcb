@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin battleThemeA.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:battleThemeA.mp3
+
 #begin character.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -48,4 +54,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:FireBall1.png
+
+#begin Jump__009.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Jump__009.ogg
+
+#begin Snare__004.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Snare__004.ogg
 
