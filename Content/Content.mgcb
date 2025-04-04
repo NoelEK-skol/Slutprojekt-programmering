@@ -61,6 +61,18 @@
 /processorParam:Quality=Best
 /build:Jump__009.ogg
 
+#begin Moneky1-removebg-preview.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Moneky1-removebg-preview.png
+
 #begin Snare__004.ogg
 /importer:OggImporter
 /processor:SoundEffectProcessor

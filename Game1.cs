@@ -1,4 +1,5 @@
-﻿using System.Dynamic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,9 +16,13 @@ public class Game1 : Game
     private Texture2D backgroundTexture;
     private Texture2D explorer;
     private Texture2D fire;
+    private Texture2D moneky;
     Song theme;
     SoundEffect effect;
     SoundEffect shooteffect;
+
+
+    private List<Enemy> enemies = new List<Enemy>();
 
     public Game1()
     {
@@ -40,6 +45,7 @@ public class Game1 : Game
         explorer = Content.Load<Texture2D>("character");
         fire = Content.Load<Texture2D>("FireBall1");
         theme = Content.Load<Song>("battleThemeA");
+        moneky = Content.Load<Texture2D>("Moneky1-removebg-preview");
         MediaPlayer.Volume = 0.1f;
         MediaPlayer.Play(theme);
         MediaPlayer.IsRepeating = true;
@@ -61,7 +67,13 @@ public class Game1 : Game
 
         // TODO: Add your update logic here
 
+        EnemyBulletCollision();
         player.Update();
+
+        foreach(Enemy enemy in enemies){
+            enemy.Update();
+        }
+        SpawnEnemy();
         base.Update(gameTime);
     }
 
@@ -75,8 +87,34 @@ public class Game1 : Game
         Rectangle bgRect = new(0,0, 800, 480);
         _spriteBatch.Draw(backgroundTexture, bgRect, Color.White);
         player.Draw(_spriteBatch);
+        foreach(Enemy enemy in enemies){
+            enemy.Draw(_spriteBatch);
+        }
 
         _spriteBatch.End();
         base.Draw(gameTime);
+    }
+
+
+    private void SpawnEnemy(){
+        Random rand = new Random();
+        int value = rand.Next(1, 101);
+        int spawnChancePercent = (int)1f;
+        if(value <= spawnChancePercent)
+            enemies.Add(new Enemy(moneky, new(1000, 300)));
+    }
+
+
+    private void EnemyBulletCollision(){
+        for(int i = 0; i < enemies.Count; i++){
+            for(int j = 0; j < player.Bullets.Count; j++){
+                if(enemies[i].Hitbox.Intersects(player.Bullets[j].Hitbox)){
+                    enemies.RemoveAt(i);
+                    player.Bullets.RemoveAt(j);
+                    i--;
+                    break;
+                }
+            }
+        }
     }
 }
