@@ -45,3 +45,5 @@ C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Cont
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\Snare__004.xnb
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\Moneky1-removebg-preview.xnb
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\PixelH.xnb
+C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\Punch1__004.xnb
+C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\Explosion3__009.xnb

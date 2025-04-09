@@ -22,6 +22,9 @@ public class Game1 : Game
     Song theme;
     SoundEffect effect;
     SoundEffect shooteffect;
+    SoundEffect BulletHit;
+    SoundEffect PlayerHit;
+    SoundEffectInstance PlayerHitInstance;
 
 
     private List<Enemy> enemies = new List<Enemy>();
@@ -56,6 +59,10 @@ public class Game1 : Game
         SoundEffectInstance effectInstance = effect.CreateInstance();
         effectInstance.Volume = 0.5f;
         shooteffect = Content.Load<SoundEffect>("Snare__004");
+        BulletHit = Content.Load<SoundEffect>("Punch1__004");
+        PlayerHit = Content.Load<SoundEffect>("Explosion3__009");
+        PlayerHitInstance = PlayerHit.CreateInstance();
+        PlayerHitInstance.Volume = 0.7f;
         player = new(explorer, new Vector2(250, 300), 150, fire, effectInstance, shooteffect);
 
         // TODO: use this.Content to load your game content here
@@ -120,6 +127,7 @@ public class Game1 : Game
                     enemies.RemoveAt(i);
                     player.Bullets.RemoveAt(j);
                     i--;
+                    BulletHit.Play();
                     break;
                 }
             }
@@ -133,6 +141,7 @@ public class Game1 : Game
                 HP--;
                 enemies.RemoveAt(i);
                 i--;
+                PlayerHitInstance.Play();
                 if(HP <= 0){
                     Exit();
                 }
@@ -142,8 +151,5 @@ public class Game1 : Game
 }
 
 
-
-// ljudeffekt när spelaren blir träffad?
-// ljudeffekt när fiende blir träffad av bullet?
 
 //lägg till flygande apa + platformar att ta sig upp

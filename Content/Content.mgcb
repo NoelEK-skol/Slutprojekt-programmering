@@ -43,6 +43,12 @@
 /processorParam:TextureFormat=Color
 /build:DALL·E 2025-03-19 09.27.50 - A vibrant 2D platformer game background featuring a parallax-style landscape. The scene includes a soft gradient sky transitioning from deep blue to w.webp;Backgrund.webp
 
+#begin Explosion3__009.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Explosion3__009.ogg
+
 #begin FireBall1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -84,6 +90,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:PixelH.png
+
+#begin Punch1__004.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Punch1__004.ogg
 
 #begin Snare__004.ogg
 /importer:OggImporter
