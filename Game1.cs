@@ -17,6 +17,8 @@ public class Game1 : Game
     private Texture2D explorer;
     private Texture2D fire;
     private Texture2D moneky;
+    private Texture2D heart;
+    private int HP = 3;
     Song theme;
     SoundEffect effect;
     SoundEffect shooteffect;
@@ -46,6 +48,7 @@ public class Game1 : Game
         fire = Content.Load<Texture2D>("FireBall1");
         theme = Content.Load<Song>("battleThemeA");
         moneky = Content.Load<Texture2D>("Moneky1-removebg-preview");
+        heart = Content.Load<Texture2D>("PixelH");
         MediaPlayer.Volume = 0.1f;
         MediaPlayer.Play(theme);
         MediaPlayer.IsRepeating = true;
@@ -69,6 +72,7 @@ public class Game1 : Game
 
         EnemyBulletCollision();
         player.Update();
+        PlayerCollision();
 
         foreach(Enemy enemy in enemies){
             enemy.Update();
@@ -89,6 +93,10 @@ public class Game1 : Game
         player.Draw(_spriteBatch);
         foreach(Enemy enemy in enemies){
             enemy.Draw(_spriteBatch);
+        }
+
+        for(int i = 0; i < HP; i++){
+            _spriteBatch.Draw(heart, new Rectangle(50*i, 0, 50, 50), Color.White);
         }
 
         _spriteBatch.End();
@@ -117,4 +125,25 @@ public class Game1 : Game
             }
         }
     }
+
+
+    private void PlayerCollision(){
+        for(int i = 0; i < enemies.Count; i++){
+            if(enemies[i].Hitbox.Intersects(player.Hitbox)){
+                HP--;
+                enemies.RemoveAt(i);
+                i--;
+                if(HP <= 0){
+                    Exit();
+                }
+            }
+        }
+    }
 }
+
+
+
+// ljudeffekt när spelaren blir träffad?
+// ljudeffekt när fiende blir träffad av bullet?
+
+//lägg till flygande apa + platformar att ta sig upp

@@ -32,7 +32,7 @@ namespace Slutprojekt_programmering
             this.position = position;
             this.effect = effect;
             this.shooteffect = shooteffect;
-            hitbox = new Rectangle((int)position.X,(int)position.Y,(int)(pixelSize*1.5), pixelSize);
+            hitbox = new Rectangle((int)position.X,(int)position.Y,(int)(pixelSize*0.75), pixelSize);
         }
 
         private void jump(){
@@ -65,7 +65,7 @@ namespace Slutprojekt_programmering
 
         private void Shoot(){
             if(newKState.IsKeyDown(Keys.E) && oldKState.IsKeyUp(Keys.E)){
-                bullets.Add(new(bulletTexture, position + new Vector2(45,10)));
+                bullets.Add(new(bulletTexture, position + new Vector2(-5,25)));
                 shooteffect.Play();
             }
         }

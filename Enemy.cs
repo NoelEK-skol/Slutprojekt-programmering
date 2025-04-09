@@ -19,7 +19,7 @@ namespace Slutprojekt_programmering
         {
             this.texture = texture;
             this.position = position;
-            hitbox = new Rectangle((int)position.X, (int)position.Y, 150, 150);
+            hitbox = new Rectangle((int)position.X, (int)position.Y, 135, 135);
         }
 
         public void Update()

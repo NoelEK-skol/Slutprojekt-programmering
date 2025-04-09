@@ -16,7 +16,7 @@ namespace Slutprojekt_programmering
         public Bullet(Texture2D texture, Vector2 spawnPosition){
             this.texture = texture;
             position = spawnPosition;
-            hitbox = new Rectangle((int)position.X,(int)position.Y,80,80);
+            hitbox = new Rectangle((int)position.X,(int)position.Y,30,40);
         }
 
         public void Update(){
