@@ -18,6 +18,7 @@ public class Game1 : Game
     private Texture2D fire;
     private Texture2D moneky;
     private Texture2D heart;
+    private Texture2D platformShort;
     private int HP = 3;
     Song theme;
     SoundEffect effect;
@@ -52,6 +53,7 @@ public class Game1 : Game
         theme = Content.Load<Song>("battleThemeA");
         moneky = Content.Load<Texture2D>("Moneky1-removebg-preview");
         heart = Content.Load<Texture2D>("PixelH");
+        platformShort = Content.Load<Texture2D>("ShortTile");
         MediaPlayer.Volume = 0.1f;
         MediaPlayer.Play(theme);
         MediaPlayer.IsRepeating = true;
