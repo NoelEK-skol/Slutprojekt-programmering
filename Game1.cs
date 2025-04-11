@@ -40,7 +40,6 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-
         base.Initialize();
     }
 
@@ -122,7 +121,6 @@ public class Game1 : Game
             enemies.Add(new Enemy(moneky, new(1000, 300)));
     }
 
-
     private void EnemyBulletCollision(){
         for(int i = 0; i < enemies.Count; i++){
             for(int j = 0; j < player.Bullets.Count; j++){
@@ -151,6 +149,7 @@ public class Game1 : Game
             }
         }
     }
+
 }
 
 
