@@ -20,12 +20,12 @@ public class Game1 : Game
     private Texture2D heart;
     private Texture2D platformShort;
     private int HP = 3;
-    Song theme;
-    SoundEffect effect;
-    SoundEffect shooteffect;
-    SoundEffect BulletHit;
-    SoundEffect PlayerHit;
-    SoundEffectInstance PlayerHitInstance;
+    private Song theme;
+    private SoundEffect effect;
+    private SoundEffect shooteffect;
+    private SoundEffect BulletHit;
+    private SoundEffect PlayerHit;
+    private SoundEffectInstance PlayerHitInstance;
 
 
     private List<Enemy> enemies = new List<Enemy>();
@@ -99,6 +99,7 @@ public class Game1 : Game
 
         Rectangle bgRect = new(0,0, 800, 480);
         _spriteBatch.Draw(backgroundTexture, bgRect, Color.White);
+        _spriteBatch.Draw(platformShort, new Rectangle(300, 300, 200, 50), Color.White);
         player.Draw(_spriteBatch);
         foreach(Enemy enemy in enemies){
             enemy.Draw(_spriteBatch);
