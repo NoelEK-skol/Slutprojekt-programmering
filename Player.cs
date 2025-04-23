@@ -36,7 +36,7 @@ namespace Slutprojekt_programmering
         }
 
         private void jump(){
-            if(canJump){
+            if(true){             //if(canJump) stanard, if(true) bra för test-hoppa flera gånger
                 velocity.Y = -10;
                 canJump = false;
             }
@@ -53,6 +53,12 @@ namespace Slutprojekt_programmering
                 position.Y = 300;
                 canJump = true;
             }
+
+
+            if(position.X >= 500 && position.Y >= 210){
+                velocity.Y = 0;
+            }
+
 
             foreach(Bullet b in bullets){
                 b.Update();

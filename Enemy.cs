@@ -28,6 +28,9 @@ namespace Slutprojekt_programmering
             position.X -= speed * 1f/60f;
             hitbox.Location = position.ToPoint();
         }
+        public bool ShouldExit() {
+            return position.X <= 0;
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {

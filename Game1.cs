@@ -71,7 +71,7 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+        if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
         
@@ -84,6 +84,7 @@ public class Game1 : Game
 
         foreach(Enemy enemy in enemies){
             enemy.Update();
+            if(enemy.ShouldExit()) Exit();
         }
         SpawnEnemy();
         base.Update(gameTime);
