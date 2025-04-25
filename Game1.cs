@@ -17,8 +17,10 @@ public class Game1 : Game
     private Texture2D explorer;
     private Texture2D fire;
     private Texture2D moneky;
+    private Texture2D monkey2;
     private Texture2D heart;
     private Texture2D platformShort;
+    private Texture2D platformLong;
     private int HP = 3;
     private Song theme;
     private SoundEffect effect;
@@ -51,8 +53,10 @@ public class Game1 : Game
         fire = Content.Load<Texture2D>("FireBall1");
         theme = Content.Load<Song>("battleThemeA");
         moneky = Content.Load<Texture2D>("Moneky1-removebg-preview");
+        monkey2 = Content.Load<Texture2D>("pixel-art-bird-apa");
         heart = Content.Load<Texture2D>("PixelH");
         platformShort = Content.Load<Texture2D>("ShortTile");
+        platformLong = Content.Load<Texture2D>("LongTile");
         MediaPlayer.Volume = 0.1f;
         MediaPlayer.Play(theme);
         MediaPlayer.IsRepeating = true;
@@ -87,6 +91,7 @@ public class Game1 : Game
             if(enemy.ShouldExit()) Exit();
         }
         SpawnEnemy();
+        SpawnEnemy2();
         base.Update(gameTime);
     }
 
@@ -99,7 +104,9 @@ public class Game1 : Game
 
         Rectangle bgRect = new(0,0, 800, 480);
         _spriteBatch.Draw(backgroundTexture, bgRect, Color.White);
-        _spriteBatch.Draw(platformShort, new Rectangle(300, 300, 200, 50), Color.White);
+        _spriteBatch.Draw(platformShort, new Rectangle(300, 290, 200, 50), Color.White);
+        _spriteBatch.Draw(platformShort, new Rectangle(550, 200, 200, 50), Color.White);
+        _spriteBatch.Draw(platformLong, new Rectangle(-5, 200, 200, 50), Color.White);
         player.Draw(_spriteBatch);
         foreach(Enemy enemy in enemies){
             enemy.Draw(_spriteBatch);
@@ -120,6 +127,14 @@ public class Game1 : Game
         int spawnChancePercent = (int)1f;
         if(value <= spawnChancePercent)
             enemies.Add(new Enemy(moneky, new(1000, 300)));
+    }
+
+    private void SpawnEnemy2(){
+         Random rand = new Random();
+        int value = rand.Next(1, 101);
+        int spawnChancePercent = (int)1f;
+        if(value <= spawnChancePercent)
+            enemies.Add(new Enemy(monkey2, new(1000, 60)));
     }
 
     private void EnemyBulletCollision(){

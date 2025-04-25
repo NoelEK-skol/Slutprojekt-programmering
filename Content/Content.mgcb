@@ -91,6 +91,18 @@
 /processorParam:TextureFormat=Color
 /build:Moneky1-removebg-preview.png
 
+#begin pixel-art-bird-apa.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:pixel-art-bird-apa.png
+
 #begin PixelH.png
 /importer:TextureImporter
 /processor:TextureProcessor

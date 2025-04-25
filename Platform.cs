@@ -14,7 +14,7 @@ namespace Slutprojekt_programmering
         {
             return otherRectangle.Intersects(this.rectangle);
         }
-
+        
 
     }
 }

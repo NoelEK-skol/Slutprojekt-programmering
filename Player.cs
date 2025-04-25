@@ -36,7 +36,7 @@ namespace Slutprojekt_programmering
         }
 
         private void jump(){
-            if(true){             //if(canJump) stanard, if(true) bra för test-hoppa flera gånger
+            if(canJump){             //if(canJump) stanard, if(true) bra för test-hoppa flera gånger
                 velocity.Y = -10;
                 canJump = false;
             }
@@ -55,10 +55,29 @@ namespace Slutprojekt_programmering
             }
 
 
-            if(position.X >= 500 && position.Y >= 210){
+            if(position.X >= 470 && Math.Abs(position.Y - 215) < 6 && velocity.Y > 0){         //hitbox platform längst ner 1
                 velocity.Y = 0;
+                position.Y = 215;
+                canJump = true;
             }
 
+            if(position.X >= 220 && position.X <= 450 && Math.Abs(position.Y - 150) < 7 && velocity.Y > 0){    //hitbox platform 2
+                velocity.Y = 0;
+                position.Y = 150;
+                canJump = true;
+            }
+
+            if(position.X >= 470 && position.X <= 700 && Math.Abs(position.Y - 60) < 5 && velocity.Y > 0){    //hitbox platform 3
+                velocity.Y = 0;
+                position.Y = 60;
+                canJump = true;
+            }
+
+             if(position.X <= 160 && Math.Abs(position.Y - 60) < 5 && velocity.Y > 0){    //hitbox platform 4
+                velocity.Y = 0;
+                position.Y = 60;
+                canJump = true;
+            }
 
             foreach(Bullet b in bullets){
                 b.Update();
