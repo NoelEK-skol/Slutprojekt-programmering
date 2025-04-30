@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-
 namespace Slutprojekt_programmering;
 
 public class Game1 : Game
@@ -14,6 +13,7 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     private Player player;
     private Texture2D backgroundTexture;
+    private Texture2D backgroundTextureMeny;
     private Texture2D explorer;
     private Texture2D fire;
     private Texture2D moneky;
@@ -28,7 +28,15 @@ public class Game1 : Game
     private SoundEffect BulletHit;
     private SoundEffect PlayerHit;
     private SoundEffectInstance PlayerHitInstance;
+    private GameStates _gameState;
+    private SpriteFont Meny;
 
+
+    public enum GameStates{
+        Menu,
+        Playing,
+        Paused,
+    }
 
     private List<Enemy> enemies = new List<Enemy>();
 
@@ -49,6 +57,7 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         backgroundTexture = Content.Load<Texture2D>("Backgrund");
+        backgroundTextureMeny = Content.Load<Texture2D>("StartMenyBackgrund");
         explorer = Content.Load<Texture2D>("character");
         fire = Content.Load<Texture2D>("FireBall1");
         theme = Content.Load<Song>("battleThemeA");
@@ -69,12 +78,14 @@ public class Game1 : Game
         PlayerHitInstance = PlayerHit.CreateInstance();
         PlayerHitInstance.Volume = 0.7f;
         player = new(explorer, new Vector2(250, 300), 150, fire, effectInstance, shooteffect);
+        Meny = Content.Load<SpriteFont>("File");
 
         // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
     {
+       
         if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
@@ -82,17 +93,27 @@ public class Game1 : Game
 
         // TODO: Add your update logic here
 
+         if(_gameState == GameStates.Menu){
+            if(Keyboard.GetState().IsKeyDown(Keys.Space)){
+                _gameState = GameStates.Playing;
+            }
+        }
+
+        else if(_gameState == GameStates.Playing){
+            
         EnemyBulletCollision();
         player.Update();
         PlayerCollision();
 
         foreach(Enemy enemy in enemies){
-            enemy.Update();
-            if(enemy.ShouldExit()) Exit();
+        enemy.Update();
+        if(enemy.ShouldExit()) Exit();
         }
         SpawnEnemy();
         SpawnEnemy2();
         base.Update(gameTime);
+        }
+     
     }
 
     protected override void Draw(GameTime gameTime)
@@ -102,6 +123,14 @@ public class Game1 : Game
 
         // TODO: Add your drawing code here
 
+          if(_gameState == GameStates.Menu){
+            //rita ut menyn
+            
+            Rectangle bgRect = new(0,0, 800, 480);
+            _spriteBatch.Draw(backgroundTextureMeny, bgRect, Color.White);
+            _spriteBatch.DrawString(Meny, "Detta är en meny \nSkjut (\"E\") aporna innan de tar sig till andra sidan\nTryck \"Space\" för att spela", new Vector2(225, 100), Color.Azure);
+        }
+        else if(_gameState == GameStates.Playing){
         Rectangle bgRect = new(0,0, 800, 480);
         _spriteBatch.Draw(backgroundTexture, bgRect, Color.White);
         _spriteBatch.Draw(platformShort, new Rectangle(300, 290, 200, 50), Color.White);
@@ -109,12 +138,16 @@ public class Game1 : Game
         _spriteBatch.Draw(platformLong, new Rectangle(-5, 200, 200, 50), Color.White);
         player.Draw(_spriteBatch);
         foreach(Enemy enemy in enemies){
-            enemy.Draw(_spriteBatch);
+        enemy.Draw(_spriteBatch);
         }
 
         for(int i = 0; i < HP; i++){
             _spriteBatch.Draw(heart, new Rectangle(50*i, 0, 50, 50), Color.White);
         }
+        }
+     
+
+      
 
         _spriteBatch.End();
         base.Draw(gameTime);

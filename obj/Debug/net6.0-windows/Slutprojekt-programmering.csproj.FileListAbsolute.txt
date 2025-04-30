@@ -50,3 +50,5 @@ C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Cont
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\LongTile.xnb
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\ShortTile.xnb
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\pixel-art-bird-apa.xnb
+C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\File.xnb
+C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\StartMenyBackgrund.xnb
