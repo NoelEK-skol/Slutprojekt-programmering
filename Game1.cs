@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using SharpDX.MediaFoundation;
 namespace Slutprojekt_programmering;
 
 public class Game1 : Game
@@ -31,11 +32,11 @@ public class Game1 : Game
     private GameStates _gameState;
     private SpriteFont Meny;
 
-
     public enum GameStates{
         Menu,
         Playing,
         Paused,
+        GameOver,
     }
 
     private List<Enemy> enemies = new List<Enemy>();
@@ -107,7 +108,7 @@ public class Game1 : Game
 
         foreach(Enemy enemy in enemies){
         enemy.Update();
-        if(enemy.ShouldExit()) Exit();
+        if(enemy.ShouldExit()) _gameState = GameStates.GameOver;
         }
         SpawnEnemy();
         SpawnEnemy2();
@@ -123,6 +124,7 @@ public class Game1 : Game
 
         // TODO: Add your drawing code here
 
+        
           if(_gameState == GameStates.Menu){
             //rita ut menyn
             
@@ -130,7 +132,7 @@ public class Game1 : Game
             _spriteBatch.Draw(backgroundTextureMeny, bgRect, Color.White);
             _spriteBatch.DrawString(Meny, "Detta är en meny \nSkjut (\"E\") aporna innan de tar sig till andra sidan\nTryck \"Space\" för att spela", new Vector2(225, 100), Color.Azure);
         }
-        else if(_gameState == GameStates.Playing){
+        else if(_gameState == GameStates.Playing || _gameState == GameStates.GameOver){
         Rectangle bgRect = new(0,0, 800, 480);
         _spriteBatch.Draw(backgroundTexture, bgRect, Color.White);
         _spriteBatch.Draw(platformShort, new Rectangle(300, 290, 200, 50), Color.White);
@@ -140,13 +142,12 @@ public class Game1 : Game
         foreach(Enemy enemy in enemies){
         enemy.Draw(_spriteBatch);
         }
+        
 
         for(int i = 0; i < HP; i++){
             _spriteBatch.Draw(heart, new Rectangle(50*i, 0, 50, 50), Color.White);
         }
         }
-     
-
       
 
         _spriteBatch.End();
@@ -193,14 +194,9 @@ public class Game1 : Game
                 i--;
                 PlayerHitInstance.Play();
                 if(HP <= 0){
-                    Exit();
+                    _gameState = GameStates.GameOver;
                 }
             }
         }
     }
-
 }
-
-
-
-//lägg till flygande apa + platformar att ta sig upp
