@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using SharpDX.DirectWrite;
 using SharpDX.MediaFoundation;
 namespace Slutprojekt_programmering;
 
@@ -15,6 +16,7 @@ public class Game1 : Game
     private Player player;
     private Texture2D backgroundTexture;
     private Texture2D backgroundTextureMeny;
+    private Texture2D backgroundTextureGameOver;
     private Texture2D explorer;
     private Texture2D fire;
     private Texture2D moneky;
@@ -32,7 +34,8 @@ public class Game1 : Game
     private GameStates _gameState;
     private SpriteFont Meny;
 
-    public enum GameStates{
+    public enum GameStates
+    {
         Menu,
         Playing,
         Paused,
@@ -59,6 +62,7 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         backgroundTexture = Content.Load<Texture2D>("Backgrund");
         backgroundTextureMeny = Content.Load<Texture2D>("StartMenyBackgrund");
+        backgroundTextureGameOver = Content.Load<Texture2D>("GameOverScreen");
         explorer = Content.Load<Texture2D>("character");
         fire = Content.Load<Texture2D>("FireBall1");
         theme = Content.Load<Song>("battleThemeA");
@@ -86,35 +90,51 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-       
+
         if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        
+
 
         // TODO: Add your update logic here
 
-         if(_gameState == GameStates.Menu){
-            if(Keyboard.GetState().IsKeyDown(Keys.Space)){
+        if (_gameState == GameStates.Menu)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
                 _gameState = GameStates.Playing;
             }
         }
-
-        else if(_gameState == GameStates.Playing){
-            
-        EnemyBulletCollision();
-        player.Update();
-        PlayerCollision();
-
-        foreach(Enemy enemy in enemies){
-        enemy.Update();
-        if(enemy.ShouldExit()) _gameState = GameStates.GameOver;
+        if (_gameState == GameStates.GameOver)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                _gameState = GameStates.Menu;
+                enemies.Clear();
+                HP = 3;                         //reset HP
+                player.position.X = 250;        //reset spelar position
+                player.position.Y = 300;        
+                player.Bullets.Clear();         //reset bullet
+            }
         }
-        SpawnEnemy();
-        SpawnEnemy2();
-        base.Update(gameTime);
+
+        else if (_gameState == GameStates.Playing)
+        {
+
+            EnemyBulletCollision();
+            player.Update();
+            PlayerCollision();
+
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Update();
+                if (enemy.ShouldExit()) _gameState = GameStates.GameOver;
+            }
+            SpawnEnemy();
+            SpawnEnemy2();
+            base.Update(gameTime);
         }
-     
+
     }
 
     protected override void Draw(GameTime gameTime)
@@ -124,57 +144,73 @@ public class Game1 : Game
 
         // TODO: Add your drawing code here
 
-        
-          if(_gameState == GameStates.Menu){
+
+        if (_gameState == GameStates.Menu)
+        {
             //rita ut menyn
-            
-            Rectangle bgRect = new(0,0, 800, 480);
+
+            Rectangle bgRect = new(0, 0, 800, 480);
             _spriteBatch.Draw(backgroundTextureMeny, bgRect, Color.White);
             _spriteBatch.DrawString(Meny, "Detta är en meny \nSkjut (\"E\") aporna innan de tar sig till andra sidan\nTryck \"Space\" för att spela", new Vector2(225, 100), Color.Azure);
         }
-        else if(_gameState == GameStates.Playing || _gameState == GameStates.GameOver){
-        Rectangle bgRect = new(0,0, 800, 480);
-        _spriteBatch.Draw(backgroundTexture, bgRect, Color.White);
-        _spriteBatch.Draw(platformShort, new Rectangle(300, 290, 200, 50), Color.White);
-        _spriteBatch.Draw(platformShort, new Rectangle(550, 200, 200, 50), Color.White);
-        _spriteBatch.Draw(platformLong, new Rectangle(-5, 200, 200, 50), Color.White);
-        player.Draw(_spriteBatch);
-        foreach(Enemy enemy in enemies){
-        enemy.Draw(_spriteBatch);
+        else if (_gameState == GameStates.Playing)
+        {
+            Rectangle bgRect = new(0, 0, 800, 480);
+            _spriteBatch.Draw(backgroundTexture, bgRect, Color.White);
+            _spriteBatch.Draw(platformShort, new Rectangle(300, 290, 200, 50), Color.White);
+            _spriteBatch.Draw(platformShort, new Rectangle(550, 200, 200, 50), Color.White);
+            _spriteBatch.Draw(platformLong, new Rectangle(-5, 200, 200, 50), Color.White);
+            player.Draw(_spriteBatch);
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Draw(_spriteBatch);
+            }
+
+
+            for (int i = 0; i < HP; i++)
+            {
+                _spriteBatch.Draw(heart, new Rectangle(50 * i, 0, 50, 50), Color.White);
+            }
+        }
+        else{
+            Rectangle bgRect = new(0, 0, 800, 480);
+        _spriteBatch.Draw(backgroundTextureGameOver, bgRect, Color.White);
+        _spriteBatch.DrawString(Meny, "Du förlora!\nTryck \"r\" för att gå tillbaks till meny", new Vector2(255, 100), Color.Azure);
         }
         
 
-        for(int i = 0; i < HP; i++){
-            _spriteBatch.Draw(heart, new Rectangle(50*i, 0, 50, 50), Color.White);
-        }
-        }
-      
 
         _spriteBatch.End();
         base.Draw(gameTime);
     }
 
 
-    private void SpawnEnemy(){
+    private void SpawnEnemy()
+    {
         Random rand = new Random();
         int value = rand.Next(1, 101);
         int spawnChancePercent = (int)1f;
-        if(value <= spawnChancePercent)
+        if (value <= spawnChancePercent)
             enemies.Add(new Enemy(moneky, new(1000, 300)));
     }
 
-    private void SpawnEnemy2(){
-         Random rand = new Random();
+    private void SpawnEnemy2()
+    {
+        Random rand = new Random();
         int value = rand.Next(1, 101);
         int spawnChancePercent = (int)1f;
-        if(value <= spawnChancePercent)
+        if (value <= spawnChancePercent)
             enemies.Add(new Enemy(monkey2, new(1000, 60)));
     }
 
-    private void EnemyBulletCollision(){
-        for(int i = 0; i < enemies.Count; i++){
-            for(int j = 0; j < player.Bullets.Count; j++){
-                if(enemies[i].Hitbox.Intersects(player.Bullets[j].Hitbox)){
+    private void EnemyBulletCollision()
+    {
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            for (int j = 0; j < player.Bullets.Count; j++)
+            {
+                if (enemies[i].Hitbox.Intersects(player.Bullets[j].Hitbox))
+                {
                     enemies.RemoveAt(i);
                     player.Bullets.RemoveAt(j);
                     i--;
@@ -186,14 +222,18 @@ public class Game1 : Game
     }
 
 
-    private void PlayerCollision(){
-        for(int i = 0; i < enemies.Count; i++){
-            if(enemies[i].Hitbox.Intersects(player.Hitbox)){
+    private void PlayerCollision()
+    {
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            if (enemies[i].Hitbox.Intersects(player.Hitbox))
+            {
                 HP--;
                 enemies.RemoveAt(i);
                 i--;
                 PlayerHitInstance.Play();
-                if(HP <= 0){
+                if (HP <= 0)
+                {
                     _gameState = GameStates.GameOver;
                 }
             }

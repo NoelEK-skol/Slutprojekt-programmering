@@ -68,6 +68,18 @@
 /processorParam:TextureFormat=Color
 /build:FireBall1.png
 
+#begin GameOverScreen.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GameOverScreen.jpg
+
 #begin Jump__009.ogg
 /importer:OggImporter
 /processor:SoundEffectProcessor
