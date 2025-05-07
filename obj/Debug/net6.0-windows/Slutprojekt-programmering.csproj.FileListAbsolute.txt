@@ -53,3 +53,4 @@ C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Cont
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\File.xnb
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\StartMenyBackgrund.xnb
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\GameOverScreen.xnb
+C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\DuckFriendly.xnb

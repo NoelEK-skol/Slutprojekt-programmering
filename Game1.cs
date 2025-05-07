@@ -21,6 +21,7 @@ public class Game1 : Game
     private Texture2D fire;
     private Texture2D moneky;
     private Texture2D monkey2;
+    private Texture2D duck1;
     private Texture2D heart;
     private Texture2D platformShort;
     private Texture2D platformLong;
@@ -43,6 +44,7 @@ public class Game1 : Game
     }
 
     private List<Enemy> enemies = new List<Enemy>();
+    private List<Friendly> friendlies = new List<Friendly>();
 
     public Game1()
     {
@@ -68,6 +70,7 @@ public class Game1 : Game
         theme = Content.Load<Song>("battleThemeA");
         moneky = Content.Load<Texture2D>("Moneky1-removebg-preview");
         monkey2 = Content.Load<Texture2D>("pixel-art-bird-apa");
+        duck1 = Content.Load<Texture2D>("DuckFriendly");
         heart = Content.Load<Texture2D>("PixelH");
         platformShort = Content.Load<Texture2D>("ShortTile");
         platformLong = Content.Load<Texture2D>("LongTile");
@@ -111,6 +114,7 @@ public class Game1 : Game
             {
                 _gameState = GameStates.Menu;
                 enemies.Clear();
+                friendlies.Clear();
                 HP = 3;                         //reset HP
                 player.position.X = 250;        //reset spelar position
                 player.position.Y = 300;        
@@ -132,6 +136,13 @@ public class Game1 : Game
             }
             SpawnEnemy();
             SpawnEnemy2();
+
+            foreach (Friendly friendly in friendlies)
+            {
+                friendly.Update();
+            }
+            SpawnFriendly();
+
             base.Update(gameTime);
         }
 
@@ -164,6 +175,11 @@ public class Game1 : Game
             foreach (Enemy enemy in enemies)
             {
                 enemy.Draw(_spriteBatch);
+            }
+
+             foreach (Friendly friendly in friendlies)
+            {
+                friendly.Draw(_spriteBatch);
             }
 
 
@@ -203,6 +219,15 @@ public class Game1 : Game
             enemies.Add(new Enemy(monkey2, new(1000, 60)));
     }
 
+    private void SpawnFriendly()
+    {
+        Random rand = new Random();
+        int value = rand.Next(1, 501);
+        int spawnChancePercent = (int)1f; 
+        if (value <= spawnChancePercent)
+            friendlies.Add(new Friendly(duck1, new(1000, 360)));
+    }
+
     private void EnemyBulletCollision()
     {
         for (int i = 0; i < enemies.Count; i++)
@@ -219,6 +244,26 @@ public class Game1 : Game
                 }
             }
         }
+
+        for (int i = 0; i< friendlies.Count; i++)
+        {
+            for (int j = 0; j < player.Bullets.Count; j++)
+            {
+                if(friendlies[i].Hitbox.Intersects(player.Bullets[j].Hitbox))
+                {
+                    friendlies.RemoveAt(i);
+                    player.Bullets.RemoveAt(j);
+                    i--;
+                    HP--;
+                    if (HP <= 0)
+                    {
+                        _gameState = GameStates.GameOver;
+                    }
+                    break;
+                }
+            }
+        }
+
     }
 
 
