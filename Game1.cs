@@ -22,9 +22,11 @@ public class Game1 : Game
     private Texture2D moneky;
     private Texture2D monkey2;
     private Texture2D duck1;
+    private Texture2D duck2;
     private Texture2D heart;
     private Texture2D platformShort;
     private Texture2D platformLong;
+    private Texture2D stege;
     private int HP = 3;
     private Song theme;
     private SoundEffect effect;
@@ -71,7 +73,9 @@ public class Game1 : Game
         moneky = Content.Load<Texture2D>("Moneky1-removebg-preview");
         monkey2 = Content.Load<Texture2D>("pixel-art-bird-apa");
         duck1 = Content.Load<Texture2D>("DuckFriendly");
+        duck2 = Content.Load<Texture2D>("DuckFriendlyFly");
         heart = Content.Load<Texture2D>("PixelH");
+        stege = Content.Load<Texture2D>("Stege");
         platformShort = Content.Load<Texture2D>("ShortTile");
         platformLong = Content.Load<Texture2D>("LongTile");
         MediaPlayer.Volume = 0.1f;
@@ -142,6 +146,7 @@ public class Game1 : Game
                 friendly.Update();
             }
             SpawnFriendly();
+            SpawnFriendly2();
 
             base.Update(gameTime);
         }
@@ -162,7 +167,7 @@ public class Game1 : Game
 
             Rectangle bgRect = new(0, 0, 800, 480);
             _spriteBatch.Draw(backgroundTextureMeny, bgRect, Color.White);
-            _spriteBatch.DrawString(Meny, "Detta är en meny \nSkjut (\"E\") aporna innan de tar sig till andra sidan\nTryck \"Space\" för att spela", new Vector2(225, 100), Color.Azure);
+            _spriteBatch.DrawString(Meny, "Detta är en meny \nSkjut (\"E\") aporna innan de tar sig till andra sidan\nTryck \"Space\" för att spela \n(OBS akta ankorna)", new Vector2(225, 100), Color.Azure);
         }
         else if (_gameState == GameStates.Playing)
         {
@@ -171,6 +176,7 @@ public class Game1 : Game
             _spriteBatch.Draw(platformShort, new Rectangle(300, 290, 200, 50), Color.White);
             _spriteBatch.Draw(platformShort, new Rectangle(550, 200, 200, 50), Color.White);
             _spriteBatch.Draw(platformLong, new Rectangle(-5, 200, 200, 50), Color.White);
+            _spriteBatch.Draw(stege, new Rectangle(-70, 180, 250, 250), Color.White);
             player.Draw(_spriteBatch);
             foreach (Enemy enemy in enemies)
             {
@@ -226,6 +232,15 @@ public class Game1 : Game
         int spawnChancePercent = (int)1f; 
         if (value <= spawnChancePercent)
             friendlies.Add(new Friendly(duck1, new(1000, 360)));
+    }
+
+    private void SpawnFriendly2()
+    {
+        Random rand = new Random();
+        int value = rand.Next(1, 501);
+        int spawnChancePercent = (int)1f;
+        if (value <= spawnChancePercent)
+            friendlies.Add(new Friendly(duck2, new(1000, 60)));
     }
 
     private void EnemyBulletCollision()
@@ -285,3 +300,10 @@ public class Game1 : Game
         }
     }
 }
+
+
+// saker att göra:
+//avstånd mellan ankor och apor
+// lägg till timer
+// sätt att få tillbaks HP?
+// inte spawna i varandra

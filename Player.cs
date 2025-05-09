@@ -79,6 +79,17 @@ namespace Slutprojekt_programmering
                 canJump = true;
             }
 
+
+            if(position.X <= 40 && position.X >= -50 && position.Y >= 65 && newKState.IsKeyDown(Keys.W)){
+                position.Y-=4;
+                velocity.Y = 0;
+            }
+
+            if(position.X <= 40 && position.X >= -50 && position.Y <= 65 && newKState.IsKeyDown(Keys.S)){
+                position.Y+=4;
+                velocity.Y =2;
+            }
+
             foreach(Bullet b in bullets){
                 b.Update();
             }
