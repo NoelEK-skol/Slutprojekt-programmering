@@ -36,6 +36,7 @@ public class Game1 : Game
     private SoundEffectInstance PlayerHitInstance;
     private GameStates _gameState;
     private SpriteFont Meny;
+    private int timer;
 
     public enum GameStates
     {
@@ -110,6 +111,7 @@ public class Game1 : Game
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
                 _gameState = GameStates.Playing;
+                timer = 0;
             }
         }
         if (_gameState == GameStates.GameOver)
@@ -132,6 +134,7 @@ public class Game1 : Game
             EnemyBulletCollision();
             player.Update();
             PlayerCollision();
+            timer ++;
 
             foreach (Enemy enemy in enemies)
             {
@@ -177,6 +180,7 @@ public class Game1 : Game
             _spriteBatch.Draw(platformShort, new Rectangle(550, 200, 200, 50), Color.White);
             _spriteBatch.Draw(platformLong, new Rectangle(-5, 200, 200, 50), Color.White);
             _spriteBatch.Draw(stege, new Rectangle(-70, 180, 250, 250), Color.White);
+            _spriteBatch.DrawString(Meny, (timer / 60).ToString(), new Vector2(710,10), Color.Black);
             player.Draw(_spriteBatch);
             foreach (Enemy enemy in enemies)
             {
@@ -197,7 +201,8 @@ public class Game1 : Game
         else{
             Rectangle bgRect = new(0, 0, 800, 480);
         _spriteBatch.Draw(backgroundTextureGameOver, bgRect, Color.White);
-        _spriteBatch.DrawString(Meny, "Du förlora!\nTryck \"r\" för att gå tillbaks till meny", new Vector2(255, 100), Color.Azure);
+        _spriteBatch.DrawString(Meny, $"Du förlora!\nTryck \"r\" för att gå tillbaks till meny\nDu överlevde i", new Vector2(255, 100), Color.Azure);
+        _spriteBatch.DrawString(Meny, $"{timer/60} s", new Vector2(390, 138), Color.Blue);
         }
         
 
@@ -278,7 +283,6 @@ public class Game1 : Game
                 }
             }
         }
-
     }
 
 
@@ -304,6 +308,6 @@ public class Game1 : Game
 
 // saker att göra:
 //avstånd mellan ankor och apor
-// lägg till timer
 // sätt att få tillbaks HP?
-// inte spawna i varandra
+// inte spawna i varandra, sätt en variabel med timer mellan dem.
+// (leaderboard ifall tid över)

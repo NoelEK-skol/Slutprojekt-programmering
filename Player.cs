@@ -80,12 +80,12 @@ namespace Slutprojekt_programmering
             }
 
 
-            if(position.X <= 40 && position.X >= -50 && position.Y >= 65 && newKState.IsKeyDown(Keys.W)){
+            if(position.X <= 40 && position.X >= -50 && position.Y >= 65 && newKState.IsKeyDown(Keys.W)){   //stege upp
                 position.Y-=4;
                 velocity.Y = 0;
             }
 
-            if(position.X <= 40 && position.X >= -50 && position.Y <= 65 && newKState.IsKeyDown(Keys.S)){
+            if(position.X <= 40 && position.X >= -50 && position.Y <= 65 && newKState.IsKeyDown(Keys.S)){   //stege ner
                 position.Y+=4;
                 velocity.Y =2;
             }
