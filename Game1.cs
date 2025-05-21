@@ -37,6 +37,8 @@ public class Game1 : Game
     private GameStates _gameState;
     private SpriteFont Meny;
     private int timer;
+    private int SpawnTimer; //gör så fiender inte kan spawna i varandra och med lite mellanrum
+    private bool ExtraHP;
 
     public enum GameStates
     {
@@ -112,6 +114,7 @@ public class Game1 : Game
             {
                 _gameState = GameStates.Playing;
                 timer = 0;
+                SpawnTimer = 0;
             }
         }
         if (_gameState == GameStates.GameOver)
@@ -123,8 +126,9 @@ public class Game1 : Game
                 friendlies.Clear();
                 HP = 3;                         //reset HP
                 player.position.X = 250;        //reset spelar position
-                player.position.Y = 300;        
+                player.position.Y = 300;
                 player.Bullets.Clear();         //reset bullet
+                ExtraHP = false;
             }
         }
 
@@ -135,6 +139,7 @@ public class Game1 : Game
             player.Update();
             PlayerCollision();
             timer ++;
+            SpawnTimer ++;
 
             foreach (Enemy enemy in enemies)
             {
@@ -180,14 +185,26 @@ public class Game1 : Game
             _spriteBatch.Draw(platformShort, new Rectangle(550, 200, 200, 50), Color.White);
             _spriteBatch.Draw(platformLong, new Rectangle(-5, 200, 200, 50), Color.White);
             _spriteBatch.Draw(stege, new Rectangle(-70, 180, 250, 250), Color.White);
-            _spriteBatch.DrawString(Meny, (timer / 60).ToString(), new Vector2(710,10), Color.Black);
+            _spriteBatch.DrawString(Meny, (timer / 60).ToString(), new Vector2(710, 10), Color.Black);
+
+            Random rand = new Random();                                 // spawna in +HP
+            int value = rand.Next(1, 501);
+            int spawnChancePercent = (int)1f;
+            if (value <= spawnChancePercent)
+                ExtraHP = true;
+                if(ExtraHP == true)
+            {
+            _spriteBatch.Draw(heart, new Rectangle(625, 325, 40, 40), Color.White);         //att göra, när spelare nuddar extrea HP. HP ska gå upp.
+            }
+
+
             player.Draw(_spriteBatch);
             foreach (Enemy enemy in enemies)
             {
                 enemy.Draw(_spriteBatch);
             }
 
-             foreach (Friendly friendly in friendlies)
+            foreach (Friendly friendly in friendlies)
             {
                 friendly.Draw(_spriteBatch);
             }
@@ -197,12 +214,14 @@ public class Game1 : Game
             {
                 _spriteBatch.Draw(heart, new Rectangle(50 * i, 0, 50, 50), Color.White);
             }
+
         }
-        else{
+        else
+        {
             Rectangle bgRect = new(0, 0, 800, 480);
-        _spriteBatch.Draw(backgroundTextureGameOver, bgRect, Color.White);
-        _spriteBatch.DrawString(Meny, $"Du förlora!\nTryck \"r\" för att gå tillbaks till meny\nDu överlevde i", new Vector2(255, 100), Color.Azure);
-        _spriteBatch.DrawString(Meny, $"{timer/60} s", new Vector2(390, 138), Color.Blue);
+            _spriteBatch.Draw(backgroundTextureGameOver, bgRect, Color.White);
+            _spriteBatch.DrawString(Meny, $"Du förlora!\nTryck \"r\" för att gå tillbaks till meny\nDu överlevde i", new Vector2(255, 100), Color.Azure);
+            _spriteBatch.DrawString(Meny, $"{timer / 60} s", new Vector2(390, 138), Color.Blue);
         }
         
 
@@ -217,8 +236,11 @@ public class Game1 : Game
         Random rand = new Random();
         int value = rand.Next(1, 101);
         int spawnChancePercent = (int)1f;
-        if (value <= spawnChancePercent)
+        if (value <= spawnChancePercent && SpawnTimer >= 15)
+        {
             enemies.Add(new Enemy(moneky, new(1000, 300)));
+            SpawnTimer = 0;
+        }
     }
 
     private void SpawnEnemy2()
@@ -226,8 +248,11 @@ public class Game1 : Game
         Random rand = new Random();
         int value = rand.Next(1, 101);
         int spawnChancePercent = (int)1f;
-        if (value <= spawnChancePercent)
+        if (value <= spawnChancePercent && SpawnTimer >= 15)
+        {
             enemies.Add(new Enemy(monkey2, new(1000, 60)));
+            SpawnTimer = 0;
+        }
     }
 
     private void SpawnFriendly()
@@ -309,5 +334,4 @@ public class Game1 : Game
 // saker att göra:
 //avstånd mellan ankor och apor
 // sätt att få tillbaks HP?
-// inte spawna i varandra, sätt en variabel med timer mellan dem.
 // (leaderboard ifall tid över)
