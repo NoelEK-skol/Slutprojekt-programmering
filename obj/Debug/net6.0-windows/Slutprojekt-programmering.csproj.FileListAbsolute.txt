@@ -56,3 +56,4 @@ C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Cont
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\DuckFriendly.xnb
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\DuckFriendlyFly.xnb
 C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\Stege.xnb
+C:\Users\Admin\Documents\Slutprojekt-programmering\bin\Debug\net6.0-windows\Content\button.xnb

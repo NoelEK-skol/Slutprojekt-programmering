@@ -39,12 +39,12 @@ public class Game1 : Game
     private int timer;
     private int SpawnTimer; //gör så fiender inte kan spawna i varandra och med lite mellanrum
     private bool ExtraHP;
+    private Button button;
 
     public enum GameStates
     {
         Menu,
         Playing,
-        Paused,
         GameOver,
     }
 
@@ -93,6 +93,7 @@ public class Game1 : Game
         PlayerHitInstance = PlayerHit.CreateInstance();
         PlayerHitInstance.Volume = 0.7f;
         player = new(explorer, new Vector2(250, 300), 150, fire, effectInstance, shooteffect);
+        button = new(Content.Load<Texture2D>("button"), new(280, 325, 200, 80));   //start knapp
         Meny = Content.Load<SpriteFont>("File");
 
         // TODO: use this.Content to load your game content here
@@ -110,6 +111,9 @@ public class Game1 : Game
 
         if (_gameState == GameStates.Menu)
         {
+            button.Update();
+            if (button.ButtonClicked()) _gameState = GameStates.Playing;
+
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
                 _gameState = GameStates.Playing;
@@ -132,14 +136,15 @@ public class Game1 : Game
             }
         }
 
+
         else if (_gameState == GameStates.Playing)
         {
 
             EnemyBulletCollision();
             player.Update();
             PlayerCollision();
-            timer ++;
-            SpawnTimer ++;
+            timer++;
+            SpawnTimer++;
 
             foreach (Enemy enemy in enemies)
             {
@@ -176,6 +181,7 @@ public class Game1 : Game
             Rectangle bgRect = new(0, 0, 800, 480);
             _spriteBatch.Draw(backgroundTextureMeny, bgRect, Color.White);
             _spriteBatch.DrawString(Meny, "Detta är en meny \nSkjut (\"E\") aporna innan de tar sig till andra sidan\nTryck \"Space\" för att spela \n(OBS akta ankorna)", new Vector2(225, 100), Color.Azure);
+            button.Draw(_spriteBatch);
         }
         else if (_gameState == GameStates.Playing)
         {
@@ -190,11 +196,16 @@ public class Game1 : Game
             Random rand = new Random();                                 // spawna in +HP
             int value = rand.Next(1, 501);
             int spawnChancePercent = (int)1f;
-            if (value <= spawnChancePercent)
+            if (value <= spawnChancePercent && HP <= 3)                 //möjlighet att få nytt HP ifall HP <= 3
                 ExtraHP = true;
-                if(ExtraHP == true)
+            if (ExtraHP)
             {
-            _spriteBatch.Draw(heart, new Rectangle(625, 325, 40, 40), Color.White);         //att göra, när spelare nuddar extrea HP. HP ska gå upp.
+                _spriteBatch.Draw(heart, new Rectangle(625, 325, 40, 40), Color.White);         //att göra, när spelare nuddar extrea HP. HP ska gå upp.
+            }
+            if (ExtraHP && player.position.X >= 560 && player.position.X <= 630 && player.position.Y >= 200)
+            {
+                HP += 1;
+                ExtraHP = false;
             }
 
 
@@ -333,5 +344,4 @@ public class Game1 : Game
 
 // saker att göra:
 //avstånd mellan ankor och apor
-// sätt att få tillbaks HP?
 // (leaderboard ifall tid över)
